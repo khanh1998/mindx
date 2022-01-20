@@ -27,6 +27,15 @@ export class PostService {
     });
   }
 
+  async like(postId: number) {
+    const post = await this.postRepository.findOneOrFail(postId);
+    const { likeCount } = post;
+    return await this.postRepository.save({
+      ...post,
+      likeCount: likeCount + 1,
+    });
+  }
+
   async getAll() {
     return this.postRepository.find({});
   }

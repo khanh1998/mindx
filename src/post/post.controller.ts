@@ -28,6 +28,12 @@ export class PostController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Post('/like/:postId')
+  likePost(@Param('postId') postId: number) {
+    return this.postService.like(postId);
+  }
+
   @Get('/:username')
   getUserPost(@Param('username') username: string) {
     return this.postService.getPostByUsername(username);
